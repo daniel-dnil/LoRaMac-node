@@ -13,7 +13,6 @@ License: Revised BSD License, see LICENSE.TXT file include in the project
 
 Maintainer: Miguel Luis and Gregory Cristian
 */
-#include <math.h>
 #include "board.h"
 #include "rtc-board.h"
 
@@ -806,8 +805,7 @@ TimerTick_t RtcConvertMsToTick( TimerTime_t timeoutValue )
 #if (PREDIV_S + 1 == MSEC_NUMBER)
     return ( TimerTick_t )timeoutValue;
 #else
-    double retVal = round( ( double )( timeoutValue * ( PREDIV_S + 1 ) ) / MSEC_NUMBER );
-    return( ( TimerTick_t )retVal );
+    return ( timeoutValue * ( PREDIV_S + 1 ) + ( MSEC_NUMBER / 2) ) / MSEC_NUMBER;
 #endif
 }
 
@@ -816,8 +814,7 @@ TimerTime_t RtcConvertTickToMs( TimerTick_t timeoutValue )
 #if (PREDIV_S + 1 == MSEC_NUMBER)
     return ( TimerTime_t )timeoutValue;
 #else
-    double retVal = round( ( double ) ( timeoutValue * MSEC_NUMBER ) / ( PREDIV_S + 1 ) );
-    return( ( TimerTime_t )retVal );
+    return ( timeoutValue * MSEC_NUMBER + (( PREDIV_S + 1 ) / 2) ) / ( PREDIV_S + 1 );
 #endif
 }
 
