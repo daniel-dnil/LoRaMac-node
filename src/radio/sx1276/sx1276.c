@@ -410,7 +410,7 @@ void SX1276SetRxConfig( RadioModems_t modem, uint32_t bandwidth,
             SX1276.Settings.Fsk.PreambleLen = preambleLen;
             SX1276.Settings.Fsk.RxSingleTimeout = ( uint32_t )( symbTimeout * ( ( 1.0 / ( double )datarate ) * 8.0 ) * 1000 );
 
-            datarate = ( uint16_t )( ( double )XTAL_FREQ / ( double )datarate );
+            datarate = ( uint16_t )( (XTAL_FREQ + (datarate / 2) ) / datarate );
             SX1276Write( REG_BITRATEMSB, ( uint8_t )( datarate >> 8 ) );
             SX1276Write( REG_BITRATELSB, ( uint8_t )( datarate & 0xFF ) );
 
@@ -583,7 +583,7 @@ void SX1276SetTxConfig( RadioModems_t modem, int8_t power, uint32_t fdev,
             SX1276Write( REG_FDEVMSB, ( uint8_t )( fdev >> 8 ) );
             SX1276Write( REG_FDEVLSB, ( uint8_t )( fdev & 0xFF ) );
 
-            datarate = ( uint16_t )( ( double )XTAL_FREQ / ( double )datarate );
+            datarate = ( uint16_t )( (XTAL_FREQ + (datarate / 2) ) / datarate );
             SX1276Write( REG_BITRATEMSB, ( uint8_t )( datarate >> 8 ) );
             SX1276Write( REG_BITRATELSB, ( uint8_t )( datarate & 0xFF ) );
 
