@@ -381,7 +381,7 @@ static uint8_t JoinRequestTrials;
 static uint8_t MaxJoinRequestTrials;
 
 /*!
- * Structure to hold an MCPS indication data.
+ * Structure to hold MCPS indication data.
  */
 static McpsIndication_t McpsIndication;
 
@@ -1412,6 +1412,7 @@ static void OnMacStateCheckTimerEvent( void )
         TimerStart( &MacStateCheckTimer );
     }
 
+    // Handle MCPS indication
     if( LoRaMacFlags.Bits.McpsInd == 1 )
     {
         if( LoRaMacDeviceClass == CLASS_C )
