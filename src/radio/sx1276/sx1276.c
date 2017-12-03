@@ -252,7 +252,10 @@ RadioState_t SX1276GetStatus( void )
 void SX1276SetChannel( uint32_t freq )
 {
     SX1276.Settings.Channel = freq;
-    freq = ( uint32_t )( ( double )freq / ( double )FREQ_STEP );
+    uint64_t freqcalc = (uint64_t) freq * (uint64_t) FREQ_STEP_DENOM;
+    freqcalc /= (uint64_t) FREQ_STEP_NUM;
+
+    freq = ( uint32_t ) freqcalc;
     SX1276Write( REG_FRFMSB, ( uint8_t )( ( freq >> 16 ) & 0xFF ) );
     SX1276Write( REG_FRFMID, ( uint8_t )( ( freq >> 8 ) & 0xFF ) );
     SX1276Write( REG_FRFLSB, ( uint8_t )( freq & 0xFF ) );
@@ -579,7 +582,10 @@ void SX1276SetTxConfig( RadioModems_t modem, int8_t power, uint32_t fdev,
             SX1276.Settings.Fsk.IqInverted = iqInverted;
             SX1276.Settings.Fsk.TxTimeout = timeout;
 
-            fdev = ( uint16_t )( ( double )fdev / ( double )FREQ_STEP );
+            uint32_t fdevcalc = (uint32_t) fdev * (uint32_t) FREQ_STEP_DENOM;
+            fdevcalc /= (uint32_t) FREQ_STEP_NUM;
+            fdev = (fdevcalc & 0xFFFF);
+
             SX1276Write( REG_FDEVMSB, ( uint8_t )( fdev >> 8 ) );
             SX1276Write( REG_FDEVLSB, ( uint8_t )( fdev & 0xFF ) );
 
