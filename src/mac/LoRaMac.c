@@ -816,7 +816,7 @@ static void OnRadioRxDone( uint8_t *payload, uint16_t size, int16_t rssi, int8_t
                     getPhy.Attribute = PHY_MAX_PAYLOAD_REPEATER;
                 }
                 phyParam = RegionGetPhyParam( LoRaMacRegion, &getPhy );
-                if( MAX( 0, ( int16_t )( ( int16_t )size - ( int16_t )LORA_MAC_FRMPAYLOAD_OVERHEAD ) ) > phyParam.Value )
+                if( MAX( 0, ( int16_t )( ( int16_t )size - ( int16_t )LORA_MAC_FRMPAYLOAD_OVERHEAD ) ) > (int32_t) phyParam.Value )
                 {
                     McpsIndication.Status = LORAMAC_EVENT_INFO_STATUS_ERROR;
                     PrepareRxDoneAbort( );
@@ -3214,7 +3214,7 @@ LoRaMacStatus_t LoRaMacMcpsRequest( McpsReq_t *mcpsRequest )
     uint8_t fPort = 0;
     void *fBuffer;
     uint16_t fBufferSize;
-    int8_t datarate;
+    int8_t datarate = 0;
     bool readyToSend = false;
 
     if( mcpsRequest == NULL )
@@ -3281,7 +3281,7 @@ LoRaMacStatus_t LoRaMacMcpsRequest( McpsReq_t *mcpsRequest )
     phyParam = RegionGetPhyParam( LoRaMacRegion, &getPhy );
     // Apply the minimum possible datarate.
     // Some regions have limitations for the minimum datarate.
-    datarate = MAX( datarate, phyParam.Value );
+    datarate = MAX( datarate, (int32_t) phyParam.Value );
 
     if( readyToSend == true )
     {

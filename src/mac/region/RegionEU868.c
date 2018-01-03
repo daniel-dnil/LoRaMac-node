@@ -92,7 +92,7 @@ static uint32_t GetBandwidth( uint32_t drIndex )
     }
 }
 
-static int8_t LimitTxPower( int8_t txPower, int8_t maxBandTxPower, int8_t datarate, uint16_t* channelsMask )
+static int8_t LimitTxPower( int8_t txPower, int8_t maxBandTxPower, int8_t _UNUSED(datarate), uint16_t* _UNUSED(channelsMask) )
 {
     int8_t txPowerResult = txPower;
 
@@ -830,7 +830,7 @@ uint8_t RegionEU868NewChannelReq( NewChannelReqParams_t* newChannelReq )
     return status;
 }
 
-int8_t RegionEU868TxParamSetupReq( TxParamSetupReqParams_t* txParamSetupReq )
+int8_t RegionEU868TxParamSetupReq( TxParamSetupReqParams_t* _UNUSED(txParamSetupReq) )
 {
     return -1;
 }
@@ -1064,7 +1064,7 @@ void RegionEU868SetContinuousWave( ContinuousWaveParams_t* continuousWave )
     Radio.SetTxContinuousWave( frequency, phyTxPower, continuousWave->Timeout );
 }
 
-uint8_t RegionEU868ApplyDrOffset( uint8_t downlinkDwellTime, int8_t dr, int8_t drOffset )
+uint8_t RegionEU868ApplyDrOffset( uint8_t _UNUSED(downlinkDwellTime), int8_t dr, int8_t drOffset )
 {
     int8_t datarate = dr - drOffset;
 
