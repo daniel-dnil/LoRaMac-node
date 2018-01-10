@@ -1040,6 +1040,18 @@ void SX1272SetOpMode( uint8_t opMode )
         SX1272SetAntSwLowPower( false );
         SX1272SetAntSw( opMode );
     }
+
+    if( ( opMode == RF_OPMODE_TRANSMITTER ) ||
+        ( opMode == RF_OPMODE_SYNTHESIZER_TX ) )
+    {
+        SX1272SetPaBoostRequired( true );
+    }
+    else
+    {
+        SX1272SetPaBoostRequired( false );
+    }
+
+
     SX1272Write( REG_OPMODE, ( SX1272Read( REG_OPMODE ) & RF_OPMODE_MASK ) | opMode );
 }
 
