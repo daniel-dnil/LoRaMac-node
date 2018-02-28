@@ -659,6 +659,11 @@ uint8_t RegionEU868LinkAdrReq( LinkAdrReqParams_t* linkAdrReq, int8_t* drOut, in
     PhyParam_t phyParam;
     RegionCommonLinkAdrReqVerifyParams_t linkAdrVerifyParams;
 
+
+    linkAdrParams.Datarate = DR_0;
+    linkAdrParams.TxPower = EU868_MAX_TX_POWER;
+    linkAdrParams.NbRep = 0;
+
     while( bytesProcessed < linkAdrReq->PayloadSize )
     {
         // Get ADR request parameters
