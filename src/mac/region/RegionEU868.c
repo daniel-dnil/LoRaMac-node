@@ -34,6 +34,7 @@ Maintainer: Miguel Luis ( Semtech ), Gregory Cristian ( Semtech ) and Daniel Jae
 // Definitions
 #define CHANNELS_MASK_SIZE              1
 
+#define JOIN_ATTEMPTS_PER_CYCLE         5
 // Global attributes
 /*!
  * LoRaMAC channels
@@ -318,7 +319,7 @@ PhyParam_t RegionEU868GetPhyParam( GetPhyParams_t* getPhy )
         case PHY_NB_JOIN_TRIALS:
         case PHY_DEF_NB_JOIN_TRIALS:
         {
-            phyParam.Value = 48;
+            phyParam.Value = JOIN_ATTEMPTS_PER_CYCLE;
             break;
         }
         default:
@@ -393,7 +394,7 @@ bool RegionEU868Verify( VerifyParams_t* verify, PhyAttribute_t phyAttribute )
         }
         case PHY_NB_JOIN_TRIALS:
         {
-            if( verify->NbJoinTrials < 48 )
+            if( verify->NbJoinTrials != JOIN_ATTEMPTS_PER_CYCLE )
             {
                 return false;
             }
@@ -870,29 +871,22 @@ int8_t RegionEU868AlternateDr( AlternateDrParams_t* alternateDr )
 {
     int8_t datarate = 0;
 
-    if( ( alternateDr->NbTrials % 48 ) == 0 )
+    switch (alternateDr->NbTrials)
     {
-        datarate = DR_0;
-    }
-    else if( ( alternateDr->NbTrials % 32 ) == 0 )
-    {
-        datarate = DR_1;
-    }
-    else if( ( alternateDr->NbTrials % 24 ) == 0 )
-    {
-        datarate = DR_2;
-    }
-    else if( ( alternateDr->NbTrials % 16 ) == 0 )
-    {
-        datarate = DR_3;
-    }
-    else if( ( alternateDr->NbTrials % 8 ) == 0 )
-    {
-        datarate = DR_4;
-    }
-    else
-    {
+    case 1:
+    case 2:
         datarate = DR_5;
+        break;
+    case 3:
+        datarate = DR_2;
+        break;
+    case 4:
+    case 5:
+        datarate = DR_0;
+        break;
+    default:
+        datarate = DR_5; // Should not happen
+        break;
     }
     return datarate;
 }
