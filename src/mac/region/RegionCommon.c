@@ -181,6 +181,13 @@ TimerTime_t RegionCommonUpdateBandTimeOff( bool joined, bool dutyCycle, Band_t* 
             {
                 nextTxDelay = MIN( bands[i].TimeOff - txDoneTime, nextTxDelay );
             }
+
+            /* DNIL: Move duty cycle control for join to application layer */
+            if( dutyCycle == false )
+            {
+                nextTxDelay = 0;
+                bands[i].TimeOff = 0;
+            }
         }
         else
         {
