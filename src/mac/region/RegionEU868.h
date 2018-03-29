@@ -482,6 +482,12 @@ void RegionEU868SetContinuousWave( ContinuousWaveParams_t* continuousWave );
  */
 uint8_t RegionEU868ApplyDrOffset( uint8_t downlinkDwellTime, int8_t dr, int8_t drOffset );
 
+/*!
+ * \brief Retrieve max output power for this product.
+ *
+ */
+uint8_t RegionEU868MaxEirp(void);
+
 /*! \} defgroup REGIONEU868 */
 
 #endif // __REGION_EU868_H__

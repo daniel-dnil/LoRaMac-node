@@ -184,6 +184,11 @@ static uint8_t CountNbOfEnabledChannels( bool joined, uint8_t datarate, uint16_t
     return nbEnabledChannels;
 }
 
+__weak uint8_t RegionEU868MaxEirp(void)
+{
+    return EU868_DEFAULT_MAX_EIRP;
+}
+
 PhyParam_t RegionEU868GetPhyParam( GetPhyParams_t* getPhy )
 {
     PhyParam_t phyParam = { 0 };
@@ -308,7 +313,7 @@ PhyParam_t RegionEU868GetPhyParam( GetPhyParams_t* getPhy )
         }
         case PHY_DEF_MAX_EIRP:
         {
-            phyParam.fValue = EU868_DEFAULT_MAX_EIRP;
+            phyParam.fValue = (float) RegionEU868MaxEirp();
             break;
         }
         case PHY_DEF_ANTENNA_GAIN:
