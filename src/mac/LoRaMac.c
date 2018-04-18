@@ -1744,8 +1744,11 @@ static void ProcessMacCommands( uint8_t *payload, uint8_t macIndex, uint8_t comm
                 break;
             case SRV_MAC_DUTY_CYCLE_REQ:
                 MaxDCycle = payload[macIndex++];
-                AggregatedDCycle = 1 << MaxDCycle;
-                AddMacCommand( MOTE_MAC_DUTY_CYCLE_ANS, 0, 0 );
+                if (15 >= MaxDCycle)
+                {
+                    AggregatedDCycle = 1 << MaxDCycle;
+                    AddMacCommand( MOTE_MAC_DUTY_CYCLE_ANS, 0, 0 );
+                }
                 break;
             case SRV_MAC_RX_PARAM_SETUP_REQ:
                 {
