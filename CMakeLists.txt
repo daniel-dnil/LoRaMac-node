@@ -18,14 +18,14 @@ set(LORAMAC_SOURCES
     src/mac/LoRaMacCrypto.c
 )
 
-add_library(loraMac ${LORAMAC_SOURCES})
+add_library(loraMac OBJECT ${LORAMAC_SOURCES})
 
-target_link_libraries(loraMac PRIVATE L0HAL FwCommon)
-set(LORAMAC_PROJECT_FLAGS -Wno-unused -D${HAL_MCU_SELECTION})
+set(LORAMAC_PROJECT_FLAGS ${LORA_STACK_CFG_FLAGS} -Wno-unused)
 
 target_compile_options(loraMac PRIVATE ${ARM_L0_COMMON_FLAGS} ${FW_COMMON_FLAGS} ${LORAMAC_PROJECT_FLAGS} )
 
 target_include_directories(loraMac
+
   # This sets the external interface include directory of the library
   PUBLIC
   ${CMAKE_CURRENT_SOURCE_DIR}/src/radio
@@ -39,4 +39,6 @@ target_include_directories(loraMac
   # project specific file is located. We need the project include directory to
   # find the "board" specific includes
   ${CMAKE_SOURCE_DIR}/src/board/
+  $<TARGET_PROPERTY:L0HAL,INTERFACE_INCLUDE_DIRECTORIES>
+  $<TARGET_PROPERTY:FwCommon,INTERFACE_INCLUDE_DIRECTORIES>
   )
