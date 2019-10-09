@@ -279,7 +279,7 @@ PhyParam_t RegionUS915GetPhyParam( GetPhyParams_t* getPhy )
         case PHY_NB_JOIN_TRIALS:
         case PHY_DEF_NB_JOIN_TRIALS:
         {
-            phyParam.Value = 2;
+            phyParam.Value = 8;
             break;
         }
         default:
@@ -379,7 +379,7 @@ bool RegionUS915Verify( VerifyParams_t* verify, PhyAttribute_t phyAttribute )
         }
         case PHY_NB_JOIN_TRIALS:
         {
-            if( verify->NbJoinTrials < 2 )
+            if( verify->NbJoinTrials < 8 )
             {
                 return false;
             }
@@ -575,7 +575,7 @@ bool RegionUS915TxConfig( TxConfigParams_t* txConfig, int8_t* txPower, TimerTime
 uint8_t RegionUS915LinkAdrReq( LinkAdrReqParams_t* linkAdrReq, int8_t* drOut, int8_t* txPowOut, uint8_t* nbRepOut, uint8_t* nbBytesParsed )
 {
     uint8_t status = 0x07;
-    RegionCommonLinkAdrParams_t linkAdrParams;
+    RegionCommonLinkAdrParams_t linkAdrParams = { 0 };
     uint8_t nextIndex = 0;
     uint8_t bytesProcessed = 0;
     uint16_t channelsMask[6] = { 0, 0, 0, 0, 0, 0 };
@@ -737,12 +737,12 @@ int8_t RegionUS915AlternateDr( AlternateDrParams_t* alternateDr )
 {
     int8_t datarate = 0;
 
-    // Re-enable 500 kHz default channels
-    ChannelsMask[4] = 0x00FF;
+    // Re-enable 500 kHz default channels if using DR_4 here (not currently in use)
+    // ChannelsMask[4] = 0x00FF;
 
     if( ( alternateDr->NbTrials & 0x01 ) == 0x01 )
     {
-        datarate = DR_4;
+        datarate = DR_2;
     }
     else
     {
