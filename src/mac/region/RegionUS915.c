@@ -279,7 +279,7 @@ PhyParam_t RegionUS915GetPhyParam( GetPhyParams_t* getPhy )
         case PHY_NB_JOIN_TRIALS:
         case PHY_DEF_NB_JOIN_TRIALS:
         {
-            phyParam.Value = 8;
+            phyParam.Value = 2;
             break;
         }
         default:
@@ -379,7 +379,7 @@ bool RegionUS915Verify( VerifyParams_t* verify, PhyAttribute_t phyAttribute )
         }
         case PHY_NB_JOIN_TRIALS:
         {
-            if( verify->NbJoinTrials < 8 )
+            if( verify->NbJoinTrials < 1 )
             {
                 return false;
             }
@@ -737,16 +737,16 @@ int8_t RegionUS915AlternateDr( AlternateDrParams_t* alternateDr )
 {
     int8_t datarate = 0;
 
-    // Re-enable 500 kHz default channels if using DR_4 here (not currently in use)
-    // ChannelsMask[4] = 0x00FF;
+    // Re-enable 500 kHz default channels
+    ChannelsMask[4] = 0x00FF;
 
     if( ( alternateDr->NbTrials & 0x01 ) == 0x01 )
     {
-        datarate = DR_2;
+        datarate = DR_0;
     }
     else
     {
-        datarate = DR_0;
+        datarate = DR_4;
     }
     return datarate;
 }
@@ -812,7 +812,7 @@ bool RegionUS915NextChannel( NextChanParams_t* nextChanParams, uint8_t* channel,
         // We found a valid channel
         *channel = enabledChannels[randr( 0, nbEnabledChannels - 1 )];
         // Disable the channel in the mask
-        RegionCommonChanDisable( ChannelsMaskRemaining, *channel, US915_MAX_NB_CHANNELS - 8 );
+        RegionCommonChanDisable( ChannelsMaskRemaining, *channel, US915_MAX_NB_CHANNELS );
 
         *time = 0;
         return true;
