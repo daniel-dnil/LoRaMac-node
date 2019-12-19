@@ -154,6 +154,11 @@ static uint8_t CountNbOfEnabledChannels( bool joined, uint8_t datarate, uint16_t
     return nbEnabledChannels;
 }
 
+__weak uint8_t RegionAS923MaxEirp(void)
+{
+    return AS923_DEFAULT_MAX_EIRP;
+}
+
 PhyParam_t RegionAS923GetPhyParam( GetPhyParams_t* getPhy )
 {
     PhyParam_t phyParam = { 0 };
@@ -317,7 +322,7 @@ PhyParam_t RegionAS923GetPhyParam( GetPhyParams_t* getPhy )
         }
         case PHY_DEF_MAX_EIRP:
         {
-            phyParam.fValue = AS923_DEFAULT_MAX_EIRP;
+            phyParam.fValue = (float) RegionAS923MaxEirp();
             break;
         }
         case PHY_DEF_ANTENNA_GAIN:
@@ -687,6 +692,10 @@ uint8_t RegionAS923LinkAdrReq( LinkAdrReqParams_t* linkAdrReq, int8_t* drOut, in
     GetPhyParams_t getPhy;
     PhyParam_t phyParam;
     RegionCommonLinkAdrReqVerifyParams_t linkAdrVerifyParams;
+
+    linkAdrParams.Datarate = DR_0;
+    linkAdrParams.TxPower = AS923_MAX_TX_POWER;
+    linkAdrParams.NbRep = 0;
 
     while( bytesProcessed < linkAdrReq->PayloadSize )
     {

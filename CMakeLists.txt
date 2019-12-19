@@ -18,6 +18,7 @@ set(LORAMAC_REGION_SOURCES
     src/mac/region/RegionCommon.c
     src/mac/region/RegionEU868.c
     src/mac/region/RegionUS915.c
+    src/mac/region/RegionAS923.c
     src/mac/LoRaMac.c
     src/mac/LoRaMacCrypto.c
 )
@@ -25,12 +26,14 @@ set(LORAMAC_REGION_SOURCES
 add_library(loraMacCommon OBJECT ${LORAMAC_COMMON_SOURCES})
 add_library(loraMacEU868 OBJECT EXCLUDE_FROM_ALL ${LORAMAC_REGION_SOURCES})
 add_library(loraMacUS915 OBJECT EXCLUDE_FROM_ALL ${LORAMAC_REGION_SOURCES})
+add_library(loraMacAS923 OBJECT EXCLUDE_FROM_ALL ${LORAMAC_REGION_SOURCES})
 
 set(LORAMAC_PROJECT_FLAGS ${LORA_STACK_CFG_FLAGS} -Wno-unused)
 
 target_compile_options(loraMacCommon PRIVATE ${ARM_L0_COMMON_FLAGS} ${FW_COMMON_FLAGS} ${LORAMAC_PROJECT_FLAGS})
 target_compile_options(loraMacEU868 PRIVATE ${ARM_L0_COMMON_FLAGS} ${FW_COMMON_FLAGS} ${LORAMAC_PROJECT_FLAGS} -DREGION_EU868)
 target_compile_options(loraMacUS915 PRIVATE ${ARM_L0_COMMON_FLAGS} ${FW_COMMON_FLAGS} ${LORAMAC_PROJECT_FLAGS} -DREGION_US915)
+target_compile_options(loraMacAS923 PRIVATE ${ARM_L0_COMMON_FLAGS} ${FW_COMMON_FLAGS} ${LORAMAC_PROJECT_FLAGS} -DREGION_AS923)
 
 target_include_directories(loraMacCommon
 
@@ -67,6 +70,18 @@ target_include_directories(loraMacUS915
 
   # This sets the external interface include directory of the library
   PUBLIC
+  $<TARGET_PROPERTY:loraMacCommon,INTERFACE_INCLUDE_DIRECTORIES>
+
+  # These are the include paths we need to build the library itself
+  PRIVATE
+  $<TARGET_PROPERTY:FwCommon,INTERFACE_INCLUDE_DIRECTORIES>
+  $<TARGET_PROPERTY:L0HAL,INTERFACE_INCLUDE_DIRECTORIES>
+  )
+
+target_include_directories(loraMacAS923
+
+  # This sets the external interface include directory of the library
+  PUBLIC
   $<TARGET_PROPERTY:loraMacCommon,INTERFACE_INCLUDE_DIRECTORIES> 
   
   # These are the include paths we need to build the library itself
@@ -74,4 +89,4 @@ target_include_directories(loraMacUS915
   $<TARGET_PROPERTY:FwCommon,INTERFACE_INCLUDE_DIRECTORIES>
   $<TARGET_PROPERTY:L0HAL,INTERFACE_INCLUDE_DIRECTORIES>
   )
-  
+

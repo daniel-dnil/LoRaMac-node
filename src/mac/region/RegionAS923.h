@@ -124,12 +124,12 @@
 /*!
  * Default Max EIRP
  */
-#define AS923_DEFAULT_MAX_EIRP                      16.0f
+#define AS923_DEFAULT_MAX_EIRP                      14.0f
 
 /*!
  * Default antenna gain
  */
-#define AS923_DEFAULT_ANTENNA_GAIN                  2.15f
+#define AS923_DEFAULT_ANTENNA_GAIN                  0.0f
 
 /*!
  * ADR Ack limit
@@ -209,7 +209,7 @@
  * Band 0 definition
  * { DutyCycle, TxMaxPower, LastTxDoneTime, TimeOff }
  */
-#define AS923_BAND0                                 { 100, AS923_MAX_TX_POWER, 0,  0 } //  1.0 %
+#define AS923_BAND0                                 { 100, AS923_MAX_TX_POWER, 0,  0, 0 } //  1.0 %
 
 /*!
  * LoRaMac default channel 1
