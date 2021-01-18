@@ -329,10 +329,10 @@ static void BoardUnusedIoInit( void )
         HAL_DBGMCU_DisableDBGSleepMode( );
         HAL_DBGMCU_DisableDBGStopMode( );
         HAL_DBGMCU_DisableDBGStandbyMode( );
-        GpioInit( &ioPin, SWCLK, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 1 );
-        GpioInit( &ioPin, SWDAT, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 1 );
-        GpioInit( &ioPin, UART_TX, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
-        GpioInit( &ioPin, UART_RX, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+        GpioInit( &ioPin, SWCLK, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 1 );
+        GpioInit( &ioPin, SWDAT, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 1 );
+        GpioInit( &ioPin, UART_TX, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+        GpioInit( &ioPin, UART_RX, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
     }
 }
 

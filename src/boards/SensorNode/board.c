@@ -207,13 +207,13 @@ void BoardDeInitMcu( void )
     SpiDeInit( &SX1276.Spi );
     SX1276IoDeInit( );
 
-    GpioInit( &ioPin, OSC_HSE_IN, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
-    GpioInit( &ioPin, OSC_HSE_OUT, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+    GpioInit( &ioPin, OSC_HSE_IN, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+    GpioInit( &ioPin, OSC_HSE_OUT, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
 
     GpioInit( &ioPin, OSC_LSE_IN, PIN_INPUT, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
     GpioInit( &ioPin, OSC_LSE_OUT, PIN_INPUT, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
 
-    GpioInit( &UsbDetect, USB_ON, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+    GpioInit( &UsbDetect, USB_ON, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
 }
 
 uint32_t BoardGetRandomSeed( void )
@@ -321,20 +321,20 @@ static void BoardUnusedIoInit( void )
 
     if( GetBoardPowerSource( ) == BATTERY_POWER )
     {
-        GpioInit( &ioPin, USB_DM, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
-        GpioInit( &ioPin, USB_DP, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+        GpioInit( &ioPin, USB_DM, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+        GpioInit( &ioPin, USB_DP, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
     }
 
-    GpioInit( &ioPin, TEST_POINT1, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
-    GpioInit( &ioPin, TEST_POINT2, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
-    GpioInit( &ioPin, TEST_POINT3, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
-    GpioInit( &ioPin, TEST_POINT4, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+    GpioInit( &ioPin, TEST_POINT1, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+    GpioInit( &ioPin, TEST_POINT2, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+    GpioInit( &ioPin, TEST_POINT3, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+    GpioInit( &ioPin, TEST_POINT4, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
 
-    GpioInit( &ioPin, PIN_NC, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
-    GpioInit( &ioPin, BOOT_1, PIN_ANALOGIC, PIN_OPEN_DRAIN, PIN_NO_PULL, 0 );
+    GpioInit( &ioPin, PIN_NC, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+    GpioInit( &ioPin, BOOT_1, PIN_ANALOG, PIN_OPEN_DRAIN, PIN_NO_PULL, 0 );
 
-    GpioInit( &ioPin, RF_RXTX, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
-    GpioInit( &ioPin, WKUP1, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+    GpioInit( &ioPin, RF_RXTX, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+    GpioInit( &ioPin, WKUP1, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
 
 #if defined( USE_DEBUGGER )
     HAL_DBGMCU_EnableDBGStopMode( );
@@ -345,8 +345,8 @@ static void BoardUnusedIoInit( void )
     HAL_DBGMCU_DisableDBGStopMode( );
     HAL_DBGMCU_DisableDBGStandbyMode( );
 
-    GpioInit( &ioPin, SWDIO, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
-    GpioInit( &ioPin, SWCLK, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+    GpioInit( &ioPin, SWDIO, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+    GpioInit( &ioPin, SWCLK, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
 #endif
 }
 

@@ -164,8 +164,8 @@ void BoardDeInitMcu( void )
     SpiDeInit( &SX1272.Spi );
     SX1272IoDeInit( );
 
-    GpioInit( &ioPin, OSC_HSE_IN, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 1 );
-    GpioInit( &ioPin, OSC_HSE_OUT, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 1 );
+    GpioInit( &ioPin, OSC_HSE_IN, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 1 );
+    GpioInit( &ioPin, OSC_HSE_OUT, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 1 );
 
     GpioInit( &ioPin, OSC_LSE_IN, PIN_INPUT, PIN_PUSH_PULL, PIN_PULL_DOWN, 1 );
     GpioInit( &ioPin, OSC_LSE_OUT, PIN_INPUT, PIN_PUSH_PULL, PIN_PULL_DOWN, 1 );
@@ -307,8 +307,8 @@ static void BoardUnusedIoInit( void )
 
     if( GetBoardPowerSource( ) == BATTERY_POWER )
     {
-        GpioInit( &ioPin, USB_DM, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
-        GpioInit( &ioPin, USB_DP, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+        GpioInit( &ioPin, USB_DM, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+        GpioInit( &ioPin, USB_DP, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
     }
 
 #if defined( USE_DEBUGGER )
@@ -320,11 +320,11 @@ static void BoardUnusedIoInit( void )
     HAL_DBGMCU_DisableDBGStopMode( );
     HAL_DBGMCU_DisableDBGStandbyMode( );
 
-    GpioInit( &ioPin, JTAG_TMS, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
-    GpioInit( &ioPin, JTAG_TCK, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
-    GpioInit( &ioPin, JTAG_TDI, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
-    GpioInit( &ioPin, JTAG_TDO, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
-    GpioInit( &ioPin, JTAG_NRST, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+    GpioInit( &ioPin, JTAG_TMS, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+    GpioInit( &ioPin, JTAG_TCK, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+    GpioInit( &ioPin, JTAG_TDI, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+    GpioInit( &ioPin, JTAG_TDO, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+    GpioInit( &ioPin, JTAG_NRST, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
 #endif
 }
 

@@ -231,8 +231,8 @@ void BoardDeInitMcu( void )
     SpiDeInit( &SX1272.Spi );
     SX1272IoDeInit( );
 
-    GpioInit( &ioPin, OSC_HSE_IN, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 1 );
-    GpioInit( &ioPin, OSC_HSE_OUT, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 1 );
+    GpioInit( &ioPin, OSC_HSE_IN, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 1 );
+    GpioInit( &ioPin, OSC_HSE_OUT, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 1 );
 
     GpioInit( &ioPin, OSC_LSE_IN, PIN_INPUT, PIN_PUSH_PULL, PIN_PULL_DOWN, 1 );
     GpioInit( &ioPin, OSC_LSE_OUT, PIN_INPUT, PIN_PUSH_PULL, PIN_PULL_DOWN, 1 );
@@ -367,29 +367,29 @@ static void BoardUnusedIoInit( void )
     }
     else
     {
-        GpioInit( &ioPin, USB_DM, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
-        GpioInit( &ioPin, USB_DP, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+        GpioInit( &ioPin, USB_DM, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+        GpioInit( &ioPin, USB_DP, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
 
         HAL_DBGMCU_DisableDBGSleepMode( );
         HAL_DBGMCU_DisableDBGStopMode( );
         HAL_DBGMCU_DisableDBGStandbyMode( );
 
-        GpioInit( &ioPin, JTAG_TMS, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
-        GpioInit( &ioPin, JTAG_TCK, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
-        GpioInit( &ioPin, JTAG_TDI, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
-        GpioInit( &ioPin, JTAG_TDO, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
-        GpioInit( &ioPin, JTAG_NRST, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+        GpioInit( &ioPin, JTAG_TMS, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+        GpioInit( &ioPin, JTAG_TCK, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+        GpioInit( &ioPin, JTAG_TDI, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+        GpioInit( &ioPin, JTAG_TDO, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+        GpioInit( &ioPin, JTAG_NRST, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
     }
 
-    GpioInit( &ioPin, BOOT_1, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+    GpioInit( &ioPin, BOOT_1, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
 
     switch( BoardVersion )
     {
         case BOARD_VERSION_2:
-            GpioInit( &ioPin, BAT_LEVEL_PIN_PA0, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+            GpioInit( &ioPin, BAT_LEVEL_PIN_PA0, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
             break;
         case BOARD_VERSION_3:
-            GpioInit( &ioPin, BAT_LEVEL_PIN_PA1, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+            GpioInit( &ioPin, BAT_LEVEL_PIN_PA1, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
             break;
         default:
             break;

@@ -177,8 +177,8 @@ void UartMcuDeInit( Uart_t *obj )
         __HAL_RCC_USART2_CLK_DISABLE( );
     }
 
-    GpioInit( &obj->Tx, obj->Tx.pin, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
-    GpioInit( &obj->Rx, obj->Rx.pin, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+    GpioInit( &obj->Tx, obj->Tx.pin, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+    GpioInit( &obj->Rx, obj->Rx.pin, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
 }
 
 uint8_t UartMcuPutChar( Uart_t *obj, uint8_t data )

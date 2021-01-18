@@ -28,7 +28,7 @@ void AdcMcuInit( Adc_t *obj, PinNames adcInput )
 
     if( adcInput != NC )
     {
-        GpioInit( &obj->AdcInput, adcInput, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+        GpioInit( &obj->AdcInput, adcInput, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
     }
 }
 

@@ -183,8 +183,8 @@ void SX1272AntSwInit( void )
 
 void SX1272AntSwDeInit( void )
 {
-    GpioInit( &AntTx, RADIO_ANT_SWITCH_TX, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
-    GpioInit( &AntRx, RADIO_ANT_SWITCH_RX, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+    GpioInit( &AntTx, RADIO_ANT_SWITCH_TX, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+    GpioInit( &AntRx, RADIO_ANT_SWITCH_RX, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
 }
 
 void SX1272SetAntSw( uint8_t opMode )

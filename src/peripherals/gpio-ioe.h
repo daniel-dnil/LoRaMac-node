@@ -21,7 +21,7 @@ Maintainer: Miguel Luis and Gregory Cristian
  * \param [IN] obj    Pointer to the GPIO object to be initialized
  * \param [IN] pin    Pin name ( please look in pinName-board.h file )
  * \param [IN] mode   Pin mode [PIN_INPUT, PIN_OUTPUT,
- *                              PIN_ALTERNATE_FCT, PIN_ANALOGIC]
+ *                              PIN_ALTERNATE_FCT, PIN_ANALOG]
  * \param [IN] config Pin config [PIN_PUSH_PULL, PIN_OPEN_DRAIN]
  * \param [IN] type   Pin type [PIN_NO_PULL, PIN_PULL_UP, PIN_PULL_DOWN]
  * \param [IN] value  Default output value at initialization

@@ -93,8 +93,8 @@ void I2cMcuDeInit( I2c_t *obj )
         __HAL_RCC_I2C2_CLK_DISABLE( );
     }
 
-    GpioInit( &obj->Scl, obj->Scl.pin, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
-    GpioInit( &obj->Sda, obj->Sda.pin, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+    GpioInit( &obj->Scl, obj->Scl.pin, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+    GpioInit( &obj->Sda, obj->Sda.pin, PIN_ANALOG, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
 }
 
 void I2cSetAddrSize( I2c_t *obj, I2cAddrSize addrSize )
