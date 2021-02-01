@@ -38,7 +38,7 @@ void GpioSetInterrupt( Gpio_t *obj, IrqModes irqMode, IrqPriorities irqPriority,
 void GpioRemoveInterrupt( Gpio_t *obj )
 {
     if (NC != obj->pin) {
-        //GpioMcuRemoveInterrupt( obj );
+        GpioMcuRemoveInterrupt( obj );
     }
 }
 
