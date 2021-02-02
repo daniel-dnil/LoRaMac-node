@@ -363,7 +363,7 @@ void SX1272SetRxConfig( RadioModems_t modem, uint32_t bandwidth,
             SX1272.Settings.Fsk.IqInverted = iqInverted;
             SX1272.Settings.Fsk.RxContinuous = rxContinuous;
             SX1272.Settings.Fsk.PreambleLen = preambleLen;
-            SX1272.Settings.Fsk.RxSingleTimeout = ( uint32_t )( symbTimeout * ( ( 1.0 / ( double )datarate ) * 8.0 ) * 1000 );
+            SX1272.Settings.Fsk.RxSingleTimeout = ( uint32_t )( symbTimeout * ( ( 1.0f / ( float )datarate ) * 8.0f ) * 1000 );
 
             datarate = ( uint16_t )( (XTAL_FREQ + (datarate / 2) ) / datarate );
             SX1272Write( REG_BITRATEMSB, ( uint8_t )( datarate >> 8 ) );
@@ -619,7 +619,7 @@ uint32_t SX1272GetTimeOnAir( RadioModems_t modem, uint8_t pktLen )
     {
     case MODEM_FSK:
         {
-            airTime = round( ( 8 * ( SX1272.Settings.Fsk.PreambleLen +
+            airTime = roundf( ( 8 * ( SX1272.Settings.Fsk.PreambleLen +
                                      ( ( SX1272Read( REG_SYNCCONFIG ) & ~RF_SYNCCONFIG_SYNCSIZE_MASK ) + 1 ) +
                                      ( ( SX1272.Settings.Fsk.FixLen == 0x01 ) ? 0.0 : 1.0 ) +
                                      ( ( ( SX1272Read( REG_PACKETCONFIG1 ) & ~RF_PACKETCONFIG1_ADDRSFILTERING_MASK ) != 0x00 ) ? 1.0 : 0 ) +
@@ -630,7 +630,7 @@ uint32_t SX1272GetTimeOnAir( RadioModems_t modem, uint8_t pktLen )
         break;
     case MODEM_LORA:
         {
-            double bw = 0.0;
+            float bw = 0.0;
             switch( SX1272.Settings.LoRa.Bandwidth )
             {
             case 0: // 125 kHz
@@ -645,23 +645,23 @@ uint32_t SX1272GetTimeOnAir( RadioModems_t modem, uint8_t pktLen )
             }
 
             // Symbol rate : time for one symbol (secs)
-            double rs = bw / ( 1 << SX1272.Settings.LoRa.Datarate );
-            double ts = 1 / rs;
+            float rs = bw / ( 1 << SX1272.Settings.LoRa.Datarate );
+            float ts = 1 / rs;
             // time of preamble
-            double tPreamble = ( SX1272.Settings.LoRa.PreambleLen + 4.25 ) * ts;
+            float tPreamble = ( SX1272.Settings.LoRa.PreambleLen + 4.25f ) * ts;
             // Symbol length of payload and time
-            double tmp = ceil( ( 8 * pktLen - 4 * SX1272.Settings.LoRa.Datarate +
+            float tmp = ceilf( ( 8 * pktLen - 4 * SX1272.Settings.LoRa.Datarate +
                                  28 + 16 * SX1272.Settings.LoRa.CrcOn -
                                  ( SX1272.Settings.LoRa.FixLen ? 20 : 0 ) ) /
-                                 ( double )( 4 * ( SX1272.Settings.LoRa.Datarate -
+                                 (float )( 4 * ( SX1272.Settings.LoRa.Datarate -
                                  ( ( SX1272.Settings.LoRa.LowDatarateOptimize > 0 ) ? 2 : 0 ) ) ) ) *
                                  ( SX1272.Settings.LoRa.Coderate + 4 );
-            double nPayload = 8 + ( ( tmp > 0 ) ? tmp : 0 );
-            double tPayload = nPayload * ts;
+            float nPayload = 8 + ( ( tmp > 0 ) ? tmp : 0 );
+            float tPayload = nPayload * ts;
             // Time on air
-            double tOnAir = tPreamble + tPayload;
+            float tOnAir = tPreamble + tPayload;
             // return ms secs
-            airTime = floor( tOnAir * 1000 + 0.999 );
+            airTime = floorf( tOnAir * 1000 + 0.999 );
         }
         break;
     }
@@ -1542,9 +1542,9 @@ void SX1272OnDio2Irq( void )
 
                     SX1272.Settings.FskPacketHandler.RssiValue = -( SX1272Read( REG_RSSIVALUE ) >> 1 );
 
-                    SX1272.Settings.FskPacketHandler.AfcValue = ( int32_t )( double )( ( ( uint16_t )SX1272Read( REG_AFCMSB ) << 8 ) |
+                    SX1272.Settings.FskPacketHandler.AfcValue = ( int32_t )(float )( ( ( uint16_t )SX1272Read( REG_AFCMSB ) << 8 ) |
                                                                            ( uint16_t )SX1272Read( REG_AFCLSB ) ) *
-                                                                           ( double )FREQ_STEP;
+                                                                           (float )FREQ_STEP;
                     SX1272.Settings.FskPacketHandler.RxGain = ( SX1272Read( REG_LNA ) >> 5 ) & 0x07;
                 }
                 break;
