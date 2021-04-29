@@ -1205,7 +1205,9 @@ void SX1272OnTimeoutIrq( void )
             {
                 // Continuous mode restart Rx chain
                 SX1272Write( REG_RXCONFIG, SX1272Read( REG_RXCONFIG ) | RF_RXCONFIG_RESTARTRXWITHOUTPLLLOCK );
-                TimerStart( &RxTimeoutSyncWord );
+
+                // DNIL: This seems to be a bug, this timer should not be started here
+                // TimerStart( &RxTimeoutSyncWord );
             }
             else
             {
@@ -1278,19 +1280,19 @@ void SX1272OnDio0Irq( void )
                                                     RF_IRQFLAGS1_SYNCADDRESSMATCH );
                         SX1272Write( REG_IRQFLAGS2, RF_IRQFLAGS2_FIFOOVERRUN );
 
-                        TimerStop( &RxTimeoutTimer );
-
                         if( SX1272.Settings.Fsk.RxContinuous == false )
                         {
-                            TimerStop( &RxTimeoutSyncWord );
                             SX1272.Settings.State = RF_IDLE;
+                            TimerStart( &RxTimeoutSyncWord );
                         }
                         else
                         {
                             // Continuous mode restart Rx chain
                             SX1272Write( REG_RXCONFIG, SX1272Read( REG_RXCONFIG ) | RF_RXCONFIG_RESTARTRXWITHOUTPLLLOCK );
-                            TimerStart( &RxTimeoutSyncWord );
+                            // DNIL: This seems to be a bug, this timer should not be started here
+                            // TimerStart( &RxTimeoutSyncWord );
                         }
+                        TimerStop( &RxTimeoutTimer );
 
                         if( ( RadioEvents != NULL ) && ( RadioEvents->RxError != NULL ) )
                         {
@@ -1324,19 +1326,19 @@ void SX1272OnDio0Irq( void )
                     SX1272.Settings.FskPacketHandler.NbBytes += ( SX1272.Settings.FskPacketHandler.Size - SX1272.Settings.FskPacketHandler.NbBytes );
                 }
 
-                TimerStop( &RxTimeoutTimer );
-
                 if( SX1272.Settings.Fsk.RxContinuous == false )
                 {
                     SX1272.Settings.State = RF_IDLE;
-                    TimerStop( &RxTimeoutSyncWord );
+                    TimerStart( &RxTimeoutSyncWord );
                 }
                 else
                 {
                     // Continuous mode restart Rx chain
                     SX1272Write( REG_RXCONFIG, SX1272Read( REG_RXCONFIG ) | RF_RXCONFIG_RESTARTRXWITHOUTPLLLOCK );
-                    TimerStart( &RxTimeoutSyncWord );
+                    // DNIL: This seems to be a bug, this timer should not be started here
+                    // TimerStart( &RxTimeoutSyncWord );
                 }
+                TimerStop( &RxTimeoutTimer );
 
                 if( ( RadioEvents != NULL ) && ( RadioEvents->RxDone != NULL ) )
                 {
